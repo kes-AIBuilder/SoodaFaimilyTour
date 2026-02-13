@@ -8,7 +8,7 @@
     "start": "next start",
     "lint": "next lint",
     "typecheck": "tsc --noEmit",
-    "pages:build": "next build && npx @cloudflare/next-on-pages@1 --outdir out --node-compat"
+    "pages:build": "next build && npx @cloudflare/next-on-pages@1 --outdir out"
   },
   "dependencies": {
     "@genkit-ai/google-genai": "^1.28.0",
@@ -43,7 +43,7 @@
     "firebase": "^11.9.1",
     "genkit": "^1.28.0",
     "lucide-react": "^0.563.0",
-    "next": "15.5.2",
+    "next": "15.5.9",
     "patch-package": "^8.0.0",
     "react": "^19.2.1",
     "react-day-picker": "^9.11.3",
