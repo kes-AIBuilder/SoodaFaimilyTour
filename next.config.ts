@@ -30,7 +30,9 @@ const nextConfig: NextConfig = {
       },
     ],
   },
-  serverExternalPackages: ['@genkit-ai/google-genai', 'genkit', 'zod'],
+  devIndicators: {
+    buildActivity: false,
+  },
 };
 
 export default nextConfig;

@@ -4,7 +4,8 @@ import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { tripInfo } from '@/lib/data';
-import type { SuggestVacationThemeSongOutput } from '@/ai/flows/types';
+import { suggestVacationThemeSong } from '@/ai/flows/suggest-vacation-theme-song';
+import type { SuggestVacationThemeSongOutput } from '@/ai/flows/suggest-vacation-theme-song';
 import { Loader2, Music, Sparkles } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 
@@ -17,23 +18,13 @@ export function ThemeSongSuggester() {
     setIsLoading(true);
     setSuggestion(null);
     try {
-      const response = await fetch('/api/genkit/suggestVacationThemeSong', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          vacationName: tripInfo.name,
-          vacationDates: tripInfo.dates,
-          vacationDescription: tripInfo.description,
-          activities: tripInfo.activities,
-          familyMembers: tripInfo.familyMembers,
-        }),
+      const result = await suggestVacationThemeSong({
+        vacationName: tripInfo.name,
+        vacationDates: tripInfo.dates,
+        vacationDescription: tripInfo.description,
+        activities: tripInfo.activities,
+        familyMembers: tripInfo.familyMembers,
       });
-      if (!response.ok) {
-        throw new Error(`Server error: ${response.statusText}`);
-      }
-      const result = await response.json();
       setSuggestion(result);
     } catch (error) {
       console.error('Failed to suggest theme song:', error);
