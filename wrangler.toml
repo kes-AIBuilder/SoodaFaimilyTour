@@ -1,0 +1,4 @@
+# wrangler.toml
+name = "soodafaimilytour"
+pages_build_output_dir = ".open-next"
+compatibility_date = "2024-02-13"
