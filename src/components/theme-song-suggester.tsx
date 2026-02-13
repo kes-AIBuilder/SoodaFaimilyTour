@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { tripInfo } from '@/lib/data';
-import type { SuggestVacationThemeSongOutput } from '@/ai/flows/suggest-vacation-theme-song';
+import type { SuggestVacationThemeSongOutput } from '@/ai/flows/types';
 import { Loader2, Music, Sparkles } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 

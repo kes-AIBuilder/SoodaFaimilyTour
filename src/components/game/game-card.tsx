@@ -8,13 +8,13 @@ import {
   AccordionTrigger,
 } from '@/components/ui/accordion';
 import { Button } from '@/components/ui/button';
-import type { GenerateGamePromptInput } from '@/ai/flows/generate-game-prompt';
+import type { GameType } from '@/ai/flows/types';
 import { Loader2 } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 
 type GameCardProps = {
   game: {
-    id: GenerateGamePromptInput['gameType'];
+    id: GameType;
     title: string;
     color: string;
     description: string;
