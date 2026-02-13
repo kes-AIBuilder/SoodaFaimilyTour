@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev -p 9002",
-    "build": "open-next build",
+    "build": "open-next build"
   },
   "dependencies": {
     "@genkit-ai/google-genai": "^1.28.0",
