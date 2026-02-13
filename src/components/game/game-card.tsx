@@ -8,7 +8,6 @@ import {
   AccordionTrigger,
 } from '@/components/ui/accordion';
 import { Button } from '@/components/ui/button';
-import { generateGamePrompt } from '@/ai/flows/generate-game-prompt';
 import type { GenerateGamePromptInput } from '@/ai/flows/generate-game-prompt';
 import { Loader2 } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
@@ -46,10 +45,20 @@ export function GameCard({ game }: GameCardProps) {
     e.stopPropagation();
     setIsLoading(true);
     try {
-      const result = await generateGamePrompt({
-        gameType: game.id,
-        previousPrompts,
+      const response = await fetch('/api/genkit/generateGamePrompt', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          gameType: game.id,
+          previousPrompts,
+        }),
       });
+      if (!response.ok) {
+        throw new Error(`Server error: ${response.statusText}`);
+      }
+      const result = await response.json();
       const newPrompt = result.prompt;
       setPrompt(newPrompt);
       setPreviousPrompts((prev) => [...prev, newPrompt]);
