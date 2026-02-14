@@ -26,6 +26,19 @@ export default function InfoSection() {
 
       <Card className="border-4 border-foreground p-2 rounded-xl hard-shadow">
         <CardHeader>
+          <CardTitle className="text-2xl font-headline border-b-4 border-green-500 inline-block pb-1">
+            📢 중요 공지
+          </CardTitle>
+        </CardHeader>
+        <CardContent>
+          <p className="text-center text-xl font-bold">
+            "즐거운 여행으로 행복한 추억 만들기"
+          </p>
+        </CardContent>
+      </Card>
+
+      <Card className="border-4 border-foreground p-2 rounded-xl hard-shadow">
+        <CardHeader>
           <CardTitle className="text-2xl font-headline border-b-4 border-primary inline-block pb-1">
             🗺️ 맛집/명소 링크
           </CardTitle>
@@ -36,7 +49,7 @@ export default function InfoSection() {
               key={place.name}
               asChild
               variant="outline"
-              className="font-bold text-base h-12 border-2 border-foreground hover:bg-accent hover:text-accent-foreground"
+              className="font-bold text-base h-auto whitespace-normal text-center py-2 border-2 border-foreground hover:bg-accent hover:text-accent-foreground"
             >
               <a href={place.url} target="_blank" rel="noopener noreferrer">
                 <place.icon className="mr-2 h-5 w-5" />

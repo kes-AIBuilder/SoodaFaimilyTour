@@ -34,7 +34,7 @@ export default function ScheduleSection() {
                         <li key={event.description} className="flex items-center gap-2">
                           <span className="text-2xl">{event.icon}</span>
                           <div>
-                            <span className="font-bold">{event.time}:</span> {event.description}
+                            <span className="font-bold">{event.time}:</span> <span className="break-keep">{event.description}</span>
                             {event.highlight && (
                               <Badge className="ml-2 bg-blue-500 text-white">Highlight</Badge>
                             )}

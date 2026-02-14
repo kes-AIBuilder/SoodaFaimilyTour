@@ -59,7 +59,8 @@ export const schedule = [
             { icon: '🍴', time: '12:00', description: '감포 수협활어직판장 점심식사' },
             { icon: '🏠', time: '14:00', description: '테르메아 체크인 및 휴식, 수영' },
             { icon: '♨️', time: '17:00 ~ 19:00', description: '가족 사우나', highlight: true },
-            { icon: '🍱', time: '20:00', description: '트레이더스에서 사온걸로 저녁 해결' }
+            { icon: '🍱', time: '20:00', description: '트레이더스에서 사온걸로 저녁 해결' },
+            { icon: '🎲', time: '밤', description: '보드게임 (라스베가스, 모두의마블)' }
         ]
     },
     {
@@ -91,7 +92,6 @@ export const games = [
     { id: 'body' as const, title: '몸으로 말해요', color: 'purple', description: '오직 몸짓으로만 제시어를 설명하세요!' },
     { id: 'pitch' as const, title: '절대음감 릴레이', color: 'green', description: '어려운 발음의 문장을 틀리지 않고 이어 말하세요!' },
     { id: 'eng' as const, title: '훈민정음 (No English)', color: 'blue', description: '영어 사용 시 벌금! 적용 상황을 뽑아보세요.' },
-    { id: 'jc' as const, title: '전지적 참견 시점', color: 'teal', description: '각자의 역할을 뽑아 과몰입 해보세요!' },
     { id: 'wake' as const, title: '기상 미션', color: 'indigo', description: '아침을 여는 간단한 미션을 수행하세요.' },
 ];
 
@@ -99,7 +99,7 @@ export const games = [
 export const checklist = [
     { id: 'shop', text: '트레이더스 장보기 (고기/밀키트)' },
     { id: 'swim', text: '수영복 & 사우나 전용 타월' },
-    { id: 'boardgame', text: '스플랜더 & 모두의마블' },
+    { id: 'boardgame', text: '라스베가스 & 모두의마블' },
     { id: 'fine', text: '벌금통' },
     { id: 'mind', text: '불만을 가지지 않겠다!는 마음가짐' },
 ];

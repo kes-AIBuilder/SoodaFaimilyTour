@@ -17,7 +17,6 @@ const GameTypeSchema = z.enum([
   'body',
   'pitch',
   'eng',
-  'jc',
   'wake',
 ]);
 
@@ -32,7 +31,6 @@ export type GenerateGamePromptInput = z.infer<typeof GenerateGamePromptInputSche
 
 const GenerateGamePromptOutputSchema = z.object({
   prompt: z.string().describe('The dynamically generated game prompt.'),
-  imageUrl: z.string().optional().describe('An optional URL for an image related to the prompt, especially for the person quiz.'),
 });
 export type GenerateGamePromptOutput = z.infer<typeof GenerateGamePromptOutputSchema>;
 
@@ -46,44 +44,34 @@ const promptDefinition = ai.definePrompt({
   name: 'generateGamePromptDefinition',
   input: {schema: GenerateGamePromptInputSchema},
   output: {schema: GenerateGamePromptOutputSchema},
-  prompt: `You are an AI assistant that generates creative and engaging prompts for family arcade games.
-Your task is to generate a game prompt based on the provided 'gameType'.
+  prompt: `You are an AI assistant that generates creative and engaging prompts for a Korean family arcade game.
+The participants include people in their 20s, 30s, 40s, and 60s. Your prompts MUST be mainstream and popular, focusing on topics familiar to Koreans in their 60s, but also recognizable by younger generations.
 
 Your response MUST be a valid JSON object that adheres to the output schema.
 Do NOT include any introductory text, explanations, or markdown code fences around the JSON.
-The JSON object should contain a "prompt" key, and optionally an "imageUrl" key.
+The JSON object should contain only a "prompt" key.
 
-Here are the game types and examples of what to generate:
-- 'person': Generate a famous historical figure or celebrity for a "세대격차 인물 퀴즈". The person should be well-known enough across generations.
-  Your response MUST include both the person's name in the "prompt" field and a REAL, publicly accessible, representative image URL in the "imageUrl" field. Prioritize sources like Wikimedia Commons or Wikipedia.
-  Examples: 
-  { "prompt": "아이유", "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a9/180901_IU_at_Incheon_Airport.jpg/800px-180901_IU_at_Incheon_Airport.jpg" }
-  { "prompt": "유재석", "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/67/20070801104007_5_728_1040.jpg/220px-20070801104007_5_728_1040.jpg" }
+Here are the game types and specific instructions:
+- 'person': Generate the name of a very famous celebrity or historical figure. The person MUST be a household name in Korea, well-known to all generations (e.g., legendary singers, top actors/actresses, historical figures from textbooks).
+  Examples: { "prompt": "나훈아" }, { "prompt": "김혜자" }, { "prompt": "이순신" }
 
-- 'word': Generate a four-character Korean word (한글 네 글자) as a fill-in-the-blank quiz. Randomly replace two of the characters with 'O'. The word should be common and suitable for a family game.
-  Examples: 
-  { "prompt": "대한OO" } (Answer: 민국)
-  { "prompt": "OO민국" } (Answer: 대한)
-  { "prompt": "유명O실" } (Answer: 무)
-  { "prompt": "OO사위" } (Answer: 백년)
+- 'word': Generate a common, everyday four-character Korean word as a fill-in-the-blank quiz. Randomly replace two of the characters with 'O'. The word must be easy and universally known.
+  Examples: { "prompt": "천생OO" } (Answer: 연분), { "prompt": "OO만세" } (Answer: 대한민국)
 
-- 'song': Generate a popular Korean song title for a "노래 전주 1초 듣기" (1-second Song Intro Quiz).
-  Examples: { "prompt": "아모르파티" }, { "prompt": "Tell Me" }, { "prompt": "Dynamite" }
+- 'song': Generate a very popular Korean song title. Include a mix of modern mega-hits and legendary older songs (70s-90s ballads, trot, etc.) that everyone would know.
+  Examples: { "prompt": "아파트" }, { "prompt": "Gee" }, { "prompt": "붉은 노을" }
 
-- 'body': Generate a charades prompt (몸으로 말해요) for an action or object.
-  Examples: { "prompt": "코끼리 코 돌기" }, { "prompt": "요리사" }, { "prompt": "좀비 걸음" }
+- 'body': Generate a charades prompt. The prompt MUST be a single, common, easy-to-act-out NOUN (명사).
+  Examples: { "prompt": "소방차" }, { "prompt": "나무늘보" }, { "prompt": "피아노" }
 
-- 'pitch': Generate a short, challenging Korean phrase for an "절대음감 릴레이" (Absolute Pitch Relay).
-  Examples: { "prompt": "간장공장공장장" }, { "prompt": "고려구고구려" }, { "prompt": "경찰청창살" }
+- 'pitch': Generate a short, humorously difficult-to-pronounce Korean phrase for an "절대음감 릴레이". It should be challenging but fun.
+  Examples: { "prompt": "경찰청 쇠창살 외철창살" }, { "prompt": "저기 저 뜀틀이 내가 뛸 뜀틀인가" }
 
-- 'eng': Generate a situation or duration for the "훈민정음 (No English)" rule.
-  Examples: { "prompt": "식사 끝날 때까지" }, { "prompt": "수영하는 동안" }, { "prompt": "앞으로 30분간" }
+- 'eng': Generate a situation for the "훈민정음 (No English)" rule. With a low probability (around 10%), add a penalty multiplier like '(벌금 x2)' or '(벌금 x5)' to the end of the prompt.
+  Examples: { "prompt": "설거지 끝날 때까지" }, { "prompt": "다음 게임 1라운드 동안 (벌금 x2)" }
 
-- 'jc': Generate a family member's role or characteristic for "전지적 참견 시점 (전참시)".
-  Examples: { "prompt": "장인어른 (조용한 관찰자)" }, { "prompt": "장모님 (탁구의 고수)" }
-
-- 'wake': Generate a morning mission for "기상 미션".
-  Examples: { "prompt": "신발 짝 맞추기" }, { "prompt": "먼저 씻기" }, { "prompt": "이불 개기" }
+- 'wake': Generate a very simple, fun morning mission.
+  Examples: { "prompt": "가족 중 한 명에게 사랑한다고 말하기" }, { "prompt": "가장 먼저 양치하기" }
 
 
 Ensure the prompt is fresh and not a duplicate of any 'previousPrompts' provided.
