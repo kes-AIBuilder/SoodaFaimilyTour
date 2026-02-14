@@ -12,7 +12,7 @@ const colorVariants: { [key: string]: { text: string; shadow: string } } = {
 export default function ScheduleSection() {
   return (
     <section className="space-y-10">
-      <h2 className="font-headline text-4xl text-center text-shadow-hard-primary">경주 아케이드 큐시트</h2>
+      <h2 className="font-headline text-4xl text-center text-shadow-hard-primary">경주 아케이드 일정</h2>
       <div className="relative border-l-8 border-foreground ml-4 pl-8 space-y-12">
         {schedule.map((dayItem) => {
           const colors = colorVariants[dayItem.color] || colorVariants.blue;

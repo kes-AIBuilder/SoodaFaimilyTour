@@ -10,34 +10,27 @@ export default function Header() {
   const [timeLeft, setTimeLeft] = useState('');
 
   useEffect(() => {
-    const calculateTimeLeft = () => {
-      // Set the target date in UTC to avoid timezone issues.
-      // Month is 0-indexed, so 1 is February.
-      const ddayUTC = Date.UTC(2026, 1, 15);
-      
-      // Get today's date in UTC
+    const timer = setInterval(() => {
+      const targetDate = new Date('2026-02-15T09:30:00+09:00'); // KST
       const now = new Date();
-      const todayUTC = Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate());
+      const difference = targetDate.getTime() - now.getTime();
 
-      const differenceInMs = ddayUTC - todayUTC;
-      
-      if (differenceInMs < 0) {
+      if (difference <= 0) {
         setTimeLeft('여행 시작!');
+        clearInterval(timer);
         return;
       }
-      
-      const days = Math.floor(differenceInMs / (1000 * 60 * 60 * 24));
-      
-      if (days === 0) {
-        setTimeLeft('D-DAY!');
-      } else {
-        setTimeLeft(`D-${days}`);
-      }
-    };
 
-    calculateTimeLeft();
-    // Update once a day is sufficient for a D-day counter.
-    const timer = setInterval(calculateTimeLeft, 1000 * 60 * 60 * 24);
+      const days = Math.floor(difference / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((difference % (1000 * 60)) / 1000);
+      
+      const dayString = days > 0 ? `D-${days}` : 'D-DAY';
+      const timeString = `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+      
+      setTimeLeft(`${dayString} ${timeString}`);
+    }, 1000);
 
     return () => clearInterval(timer);
   }, []);
@@ -71,13 +64,12 @@ export default function Header() {
       )}
       <div className="relative z-10 text-center px-4">
         {timeLeft && (
-          <div className="font-headline text-white text-xl mb-4 bg-destructive px-4 py-1 inline-block shadow-lg rounded-sm">
+          <div className="font-headline text-white text-xl mb-4 bg-destructive px-4 py-1 inline-block shadow-lg rounded-sm tabular-nums">
             {timeLeft}
           </div>
         )}
-        <p className="font-headline text-accent text-3xl mb-2 drop-shadow-md">2026 (언)수다(혜) 설특집</p>
-        <h1 className="font-headline text-6xl md:text-9xl text-white leading-tight text-shadow-hard-primary">
-          경주 패밀리<br />아케이드
+        <h1 className="font-headline text-5xl md:text-7xl text-white leading-tight text-shadow-hard-primary">
+          2026 설특집<br />경주 패밀리 아케이드
         </h1>
         <p className="text-white text-xl mt-4 font-headline tracking-widest opacity-90">
           2026.02.15 - 02.17 | 테르메아&경주일대

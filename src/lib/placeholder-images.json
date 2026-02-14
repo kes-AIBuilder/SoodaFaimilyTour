@@ -2,9 +2,9 @@
   "placeholderImages": [
     {
       "id": "hero-background",
-      "description": "Night view of Gyeongju, an ancient city in South Korea.",
-      "imageUrl": "https://images.unsplash.com/photo-1653632445034-28bf2f4ec152?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxneWVvbmdqdSUyMG5pZ2h0fGVufDB8fHx8MTc3MDkxMDQyM3ww&ixlib=rb-4.1.0&q=80&w=1080",
-      "imageHint": "gyeongju night"
+      "description": "경주 테르메아 펜션",
+      "imageUrl": "https://ak-d.tripcdn.com/images/0205w120009784lup6E14_W_1280_853_R5.webp?proc=watermark/image_trip1,l_ne,x_16,y_16,w_67,h_16;digimark/t_image,logo_tripbinary;ignoredefaultwm,1A8F",
+      "imageHint": "gyeongju thermea pension"
     }
   ]
 }

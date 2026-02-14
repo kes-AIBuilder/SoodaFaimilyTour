@@ -44,95 +44,38 @@ export function GameCard({ game }: GameCardProps) {
   const [isLoading, setIsLoading] = useState(false);
   const [previousPrompts, setPreviousPrompts] = useState<string[]>([]);
 
-  // State for person quiz
-  const [imageUrl, setImageUrl] = useState<string | null>(null);
-  const [revealStep, setRevealStep] = useState<RevealStep>('initial');
-
   const handleDraw = async (e: React.MouseEvent) => {
     e.stopPropagation();
-
-    if (game.id === 'person') {
-      if (revealStep === 'image') {
-        setRevealStep('answer');
-        return;
-      }
-
-      setIsLoading(true);
-      setRevealStep('initial');
-      setImageUrl(null);
-      try {
-        const result = await generateGamePrompt({
-          gameType: game.id,
-          previousPrompts,
-        });
-
-        if (result.prompt && result.imageUrl) {
-          setPrompt(result.prompt);
-          setImageUrl(result.imageUrl);
-          setRevealStep('image');
-          setPreviousPrompts((prev) => [...prev, result.prompt]);
-        } else {
-          throw new Error('AI did not return a valid image or prompt.');
-        }
-      } catch (error) {
-        console.error('Error generating prompt:', error);
-        toast({
-          title: '오류 발생',
-          description: '퀴즈를 생성하는 데 실패했습니다. 다시 시도해주세요.',
-          variant: 'destructive',
-        });
-        setPrompt('ERROR!');
-        setRevealStep('initial');
-      } finally {
-        setIsLoading(false);
-      }
-    } else {
-      // Logic for other games
-      setIsLoading(true);
-      try {
-        const result = await generateGamePrompt({
-          gameType: game.id,
-          previousPrompts,
-        });
-        const newPrompt = result.prompt;
-        setPrompt(newPrompt);
-        setPreviousPrompts((prev) => [...prev, newPrompt]);
-      } catch (error) {
-        console.error('Error generating prompt:', error);
-        toast({
-          title: '오류 발생',
-          description: '제시어를 생성하는 데 실패했습니다. 다시 시도해주세요.',
-          variant: 'destructive',
-        });
-        setPrompt('ERROR!');
-      } finally {
-        setIsLoading(false);
-      }
+    setIsLoading(true);
+    try {
+      const result = await generateGamePrompt({
+        gameType: game.id,
+        previousPrompts,
+      });
+      const newPrompt = result.prompt;
+      setPrompt(newPrompt);
+      setPreviousPrompts((prev) => [...prev, newPrompt]);
+    } catch (error) {
+      console.error('Error generating prompt:', error);
+      toast({
+        title: '오류 발생',
+        description: '제시어를 생성하는 데 실패했습니다. 다시 시도해주세요.',
+        variant: 'destructive',
+      });
+      setPrompt('ERROR!');
+    } finally {
+      setIsLoading(false);
     }
   };
 
   const getButtonText = () => {
-    if (game.id === 'person') {
-      if (isLoading) return <Loader2 className="animate-spin mr-2" />;
-      if (revealStep === 'image') return '정답 확인';
-      if (revealStep === 'answer') return '다음 문제';
-      return '문제 뽑기';
-    }
-    return isLoading ? <Loader2 className="animate-spin mr-2" /> : '제시어 뽑기';
+    if (isLoading) return <Loader2 className="animate-spin mr-2" />;
+    return game.id === 'person' ? '문제 뽑기' : '제시어 뽑기';
   };
   
   const DisplayContent = () => {
-    if (isLoading && (revealStep === 'initial' || game.id !== 'person')) {
+    if (isLoading) {
       return <Loader2 className="animate-spin" />;
-    }
-    if (game.id === 'person' && revealStep === 'image' && imageUrl) {
-      return (
-        <img
-          src={imageUrl}
-          alt="인물 퀴즈"
-          className="w-full h-full object-contain"
-        />
-      );
     }
     return prompt;
   }

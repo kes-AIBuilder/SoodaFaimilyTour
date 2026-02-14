@@ -4,20 +4,20 @@ export type TabId = 'cast' | 'schedule' | 'game' | 'info';
 
 export const tabs = [
   { id: 'cast' as TabId, name: '출연진', icon: Users },
-  { id: 'schedule' as TabId, name: '큐시트', icon: CalendarDays },
+  { id: 'schedule' as TabId, name: '일정', icon: CalendarDays },
   { id: 'game' as TabId, name: '게임/도구', icon: Gamepad2 },
   { id: 'info' as TabId, name: '체크/맛집', icon: ListChecks },
 ];
 
 export const cast = [
     {
-        emoji: '👴',
+        emoji: '👨‍🦰',
         name: '장인어른',
         tags: ['#조용한_관찰자', '#부드러운_탐험가'],
         color: 'blue'
     },
     {
-        emoji: '👵',
+        emoji: '👩‍🦰',
         name: '장모님',
         tags: ['#탁구의_고수', '#경주_큰손_셰프'],
         color: 'pink'
@@ -50,29 +50,31 @@ export const cast = [
 
 export const schedule = [
     {
-        day: '15',
+        day: '1',
         title: 'DAY 1: 경주 입성 & 홈파티',
         color: 'blue',
         events: [
-            { icon: '🛒', time: '출발 전', description: '트레이더스 장보기' },
-            { icon: '🏠', time: '15:00', description: '체크인 및 휴식' },
-            { icon: '♨️', time: '17:00~19:00', description: '가족 사우나', highlight: true },
-            { icon: '🍱', time: '저녁', description: '트레이더스 만찬 파티' }
+            { icon: '🛒', time: '09:30', description: '트레이더스 출발' },
+            { icon: '🛒', time: '10:00', description: '트레이더스 장보기' },
+            { icon: '🍴', time: '12:00', description: '감포 수협활어직판장 점심식사' },
+            { icon: '🏠', time: '14:00', description: '테르메아 체크인 및 휴식, 수영' },
+            { icon: '♨️', time: '17:00 ~ 19:00', description: '가족 사우나', highlight: true },
+            { icon: '🍱', time: '20:00', description: '트레이더스에서 사온걸로 저녁 해결' }
         ]
     },
     {
-        day: '16',
+        day: '2',
         title: 'DAY 2: 관광 & 야경 투어',
         color: 'pink',
         events: [
-            { icon: '🚙', time: '낮', description: '관광지 및 맛집 투어' },
-            { icon: '♨️', time: '오후', description: '1시간 짧은 힐링 사우나' },
-            { icon: '🌙', time: '19:00', description: '동궁과 월지 야경', highlight: true },
-            { icon: '🎲', time: '밤', description: '보드게임 및 수다 지옥' }
+            { icon: '☕', time: '08:00 ~ 09:00', description: '조식 시간' },
+            { icon: '🏊', time: '10:00', description: '오전 수영 타임' },
+            { icon: '🚙', time: '14:00', description: '나정항 부근 관광 및 카페' },
+            { icon: '♨️', time: '20:00 ~ 21:00', description: '가족 사우나 타임', highlight: true }
         ]
     },
     {
-        day: '17',
+        day: '3',
         title: 'DAY 3: 에스코트 작전',
         color: 'green',
         mission: {
@@ -103,14 +105,15 @@ export const checklist = [
 ];
 
 export const restaurants = [
-    { name: '동궁과 월지', url: 'https://map.naver.com/p/search/동궁과월지', icon: Star },
-    { name: '함양집', url: 'https://map.naver.com/p/search/함양집', icon: Beer },
-    { name: '교리김밥', url: 'https://map.naver.com/p/search/교리김밥', icon: MapPin },
-    { name: '황리단길', url: 'https://map.naver.com/p/search/황리단길', icon: MapPin },
+    { name: '감포 수협활어직판장', url: 'https://map.naver.com/p/search/감포수협활어직판장', icon: Beer },
+    { name: '경주 테르메아', url: 'https://map.naver.com/p/search/경주테르메아', icon: MapPin },
+    { name: '나정항', url: 'https://map.naver.com/p/search/나정항', icon: MapPin },
+    { name: '나정고운모래해변', url: 'https://map.naver.com/p/search/나정고운모래해변', icon: MapPin },
+    { name: '나정항 주변 예쁜 카페', url: 'https://map.naver.com/p/search/나정해변%20카페', icon: Star },
 ];
 
 export const tripInfo = {
-  name: "2026 (언)수다(혜) 설특집 경주 패밀리 아케이드",
+  name: "2026 설특집 경주 패밀리 아케이드",
   dates: "2026.02.15 - 02.17",
   description: "천년고도 경주에서 펼쳐지는 6인 가족의 리얼 아케이드! 가족 간의 화합을 다지고 즐거운 추억을 만들기 위한 여행. 예능 프로그램 컨셉으로 다양한 게임과 활동이 준비되어 있음.",
   activities: schedule.flatMap(s => s.events ? s.events.map(e => e.description) : [s.mission?.title || '']),
